@@ -91,6 +91,7 @@ public class RabbitMqOptions : RabbitMqSettings
 ```
 
 Here is an example settings provider that can be registered with the DI container:
+
 ```csharp
 public class MySettingsProvider : ISettingsProvider<RabbitMqSettings>
 {
@@ -119,7 +120,7 @@ Using Microsoft's new [Microsoft.Extensions.Options] framework, MassTransit sett
 
 A generic implementation of `ISettingsProvider<T>` is also provided by this library to configure any settings using the `IOptions` pattern. When using the new `IOptions` model, simply register the options like so:
 
-```
+```csharp
 IServiceProvider ConfigureServices(IServiceCollection services)
 {
     // uses an explicit options configuration...
@@ -236,12 +237,14 @@ public class MyEndpointSpecification : IEndpointSpecification
 }
 ````
 
+# Feedback
+Please provide any feedback, comments, or issues to this GitHub project [here][issues].
+
 [MassTransit]: http://masstransit-project.com/
 [Microsoft.Extensions.DependencyInjection]: https://github.com/aspnet/DependencyInjection
 [Microsoft.Extensions.Options]: https://github.com/aspnet/Options
-
 [IConfigurationProvider]: https://github.com/MassTransit/MassTransit/blob/develop/src/MassTransit/Hosting/IConfigurationProvider.cs
 [ISettingsProvider]: https://github.com/MassTransit/MassTransit/blob/develop/src/MassTransit/Hosting/ISettingsProvider.cs
 [MassTransit.Host]: https://github.com/MassTransit/MassTransit/tree/develop/src/MassTransit.Host
-
 [closed generic]: https://stackoverflow.com/questions/2173107/what-exactly-is-an-open-generic-type-in-net
+[issues]: https://github.com/NCodeGroup/MassTransit.Hosting.Extensions/issues

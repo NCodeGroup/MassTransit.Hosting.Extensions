@@ -29,7 +29,9 @@ namespace MassTransit.Hosting.Extensions
     {
         public static IServiceCollection AddMassTransit(this IServiceCollection services)
         {
+            services.TryAddScoped<IBusProvider, BusProvider>();
             services.TryAddTransient<IBusServiceConfigurator, BusServiceConfigurator>();
+            services.TryAddTransient<IServiceHost, ServiceHost>();
             services.TryAddTransient(typeof(IConsumerFactory<>), typeof(ResolvingConsumerFactory<>));
             services.TryAddTransient(typeof(ISettingsProvider<>), typeof(ConfigurationSettingsProvider<>));
             services.TryAddTransient<ISettingsProvider, ResolvingSettingsProvider>();
@@ -61,6 +63,17 @@ namespace MassTransit.Hosting.Extensions
                 services.Configure(configureOptions);
             }
             return services;
+        }
+
+        public static IServiceScope BuildServiceContainer(this IServiceCollection services, bool validateScopes = false)
+        {
+            var serviceProvider = services.BuildServiceProvider(validateScopes);
+            var lifetime = serviceProvider as IDisposable;
+            if (lifetime == null)
+                throw new InvalidOperationException("The service provider must support IDisposable in order to manage it's lifetime.");
+
+            var container = new ServiceContainer(serviceProvider, lifetime);
+            return container;
         }
     }
 }

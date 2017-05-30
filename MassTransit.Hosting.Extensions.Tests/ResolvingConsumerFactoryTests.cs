@@ -40,7 +40,7 @@ namespace MassTransit.Hosting.Extensions.Tests
 
         public Task Consume(ConsumeContext<string> context)
         {
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
 
         public void Dispose()
@@ -78,7 +78,7 @@ namespace MassTransit.Hosting.Extensions.Tests
                     .Returns((ConsumerConsumeContext<TestConsumer, string> argContext) =>
                     {
                         context = argContext;
-                        return Task.CompletedTask;
+                        return Task.FromResult(0);
                     });
 
                 Assert.Equal(0, TestConsumer.Instances.Count);

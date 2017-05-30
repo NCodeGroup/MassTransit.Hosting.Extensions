@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+
+  <metadata minClientVersion="2.8">
+    <id>MassTransit.Hosting.Extensions</id>
+    <title>MassTransit.Hosting.Extensions</title>
+    <version>1.0.0</version>
+
+    <owners>NCode Group</owners>
+    <authors>NCode Group</authors>
+    <copyright>Copyright © 2017 NCode Group</copyright>
+
+    <projectUrl>https://github.com/NCodeGroup/MassTransit.Hosting.Extensions</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/NCodeGroup/MassTransit.Hosting.Extensions/master/LICENSE.txt</licenseUrl>
+    <iconUrl>https://raw.githubusercontent.com/NCodeGroup/MassTransit.Hosting.Extensions/master/NCodeGroup.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+    <tags>MassTransit Dependency Injection DI Configuration Options</tags>
+    <description>Provides extensions for hosting MassTransist consumers by using Microsoft.Extensions for DI frameworks and configuration options.</description>
+
+    <releaseNotes></releaseNotes>
+  </metadata>
+
+  <files>
+    <file src="..\COPYRIGHT.txt" />
+    <file src="..\LICENSE.txt" />
+    <file src="..\README.md" />
+  </files>
+
+</package>

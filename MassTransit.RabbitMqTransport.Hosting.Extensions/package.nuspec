@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 
   <metadata minClientVersion="2.8">
-    <id>MassTransit.Hosting.Extensions</id>
-    <title>MassTransit.Hosting.Extensions</title>
+    <id>MassTransit.RabbitMqTransport.Hosting.Extensions</id>
+    <title>MassTransit.RabbitMqTransport.Hosting.Extensions</title>
     <version>1.0.0</version>
 
     <owners>NCode Group</owners>
@@ -15,16 +15,15 @@
     <iconUrl>https://raw.githubusercontent.com/NCodeGroup/MassTransit.Hosting.Extensions/master/NCodeGroup.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
-    <tags>MassTransit Dependency Injection DI Configuration Options</tags>
-    <description>Provides extensions for hosting MassTransist consumers by using Microsoft.Extensions for DI frameworks and configuration options.</description>
+    <tags>MassTransit RabbitMq Dependency Injection DI Configuration Options</tags>
+    <description>Provides extensions for hosting MassTransist.RabbitMqTransport consumers by using Microsoft.Extensions for DI frameworks and configuration options.</description>
 
     <releaseNotes></releaseNotes>
 
     <dependencies>
       <group targetFramework=".NETFramework4.5.2">
-        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.1.1" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.Extensions.Options" version="1.1.2" exclude="Build,Analyzers" />
-        <dependency id="MassTransit" version="3.5.7" exclude="Build,Analyzers" />
+        <dependency id="MassTransit.RabbitMQ" version="3.5.7" exclude="Build,Analyzers" />
+        <dependency id="MassTransit.Hosting.Extensions" version="1.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
@@ -34,8 +33,8 @@
     <file src="..\LICENSE.txt" />
     <file src="..\README.md" />
   
-    <file src=".\bin\Release\MassTransit.Hosting.Extensions.dll" target="lib\net452" />
-    <file src=".\bin\Release\MassTransit.Hosting.Extensions.pdb" target="lib\net452" />
+    <file src=".\bin\Release\MassTransit.RabbitMqTransport.Hosting.Extensions.dll" target="lib\net452" />
+    <file src=".\bin\Release\MassTransit.RabbitMqTransport.Hosting.Extensions.pdb" target="lib\net452" />
   </files>
 
 </package>

@@ -5,6 +5,27 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.Hosting.Extensions", "MassTransit.Hosting.Extensions\MassTransit.Hosting.Extensions.csproj", "{EE9AB43D-797A-43B5-B351-1A59E4119817}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.RabbitMqTransport.Hosting.Extensions", "MassTransit.RabbitMqTransport.Hosting.Extensions\MassTransit.RabbitMqTransport.Hosting.Extensions.csproj", "{A7B0F3CC-3D34-4461-BEA7-B5216E972ADB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.Hosting.Extensions.Tests", "MassTransit.Hosting.Extensions.Tests\MassTransit.Hosting.Extensions.Tests.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 Extensions", "1 Extensions", "{E61F1144-D571-41BC-87D9-6A3864EC0BF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Tests", "2 Tests", "{94E8CD8E-94EA-4761-9E2C-B1CE36AB0A9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Solution Items", "0 Solution Items", "{A8D5C29C-11B5-4A84-BBB8-5DD373BB8D82}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		COPYRIGHT.txt = COPYRIGHT.txt
+		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
+		LICENSE.txt = LICENSE.txt
+		NCodeGroup.png = NCodeGroup.png
+		NCodeGroup.snk = NCodeGroup.snk
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +36,21 @@ Global
 		{EE9AB43D-797A-43B5-B351-1A59E4119817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE9AB43D-797A-43B5-B351-1A59E4119817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE9AB43D-797A-43B5-B351-1A59E4119817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B0F3CC-3D34-4461-BEA7-B5216E972ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B0F3CC-3D34-4461-BEA7-B5216E972ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B0F3CC-3D34-4461-BEA7-B5216E972ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B0F3CC-3D34-4461-BEA7-B5216E972ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE9AB43D-797A-43B5-B351-1A59E4119817} = {E61F1144-D571-41BC-87D9-6A3864EC0BF9}
+		{A7B0F3CC-3D34-4461-BEA7-B5216E972ADB} = {E61F1144-D571-41BC-87D9-6A3864EC0BF9}
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47} = {94E8CD8E-94EA-4761-9E2C-B1CE36AB0A9D}
 	EndGlobalSection
 EndGlobal

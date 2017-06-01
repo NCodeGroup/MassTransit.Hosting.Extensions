@@ -4,7 +4,7 @@
   <metadata minClientVersion="2.8">
     <id>MassTransit.RabbitMqTransport.Hosting.Extensions</id>
     <title>MassTransit.RabbitMqTransport.Hosting.Extensions</title>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <owners>NCode Group</owners>
     <authors>NCode Group</authors>

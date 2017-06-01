@@ -46,12 +46,6 @@ namespace MassTransit.Hosting.Extensions
             _busControl.Start();
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public virtual IBus Bus
         {
             get
@@ -64,11 +58,18 @@ namespace MassTransit.Hosting.Extensions
             }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposing) return;
             var busControl = Interlocked.Exchange(ref _busControl, null);
             busControl?.Stop();
         }
+
     }
 }

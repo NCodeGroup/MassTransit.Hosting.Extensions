@@ -38,12 +38,28 @@ namespace MassTransit.Hosting.Extensions
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
+        protected virtual IServiceScope GetOrCreateScope()
+        {
+            var serviceScope = Interlocked.CompareExchange(ref _serviceScope, null, null);
+            if (serviceScope != null) return serviceScope;
+
+            serviceScope = _serviceProvider.CreateScope();
+            var prevScope = Interlocked.CompareExchange(ref _serviceScope, serviceScope, null);
+            if (prevScope == null) return serviceScope;
+
+            serviceScope.Dispose();
+            serviceScope = prevScope;
+
+            return serviceScope;
+        }
+
         public virtual void Start()
         {
+            var serviceScope = GetOrCreateScope();
+
             // resolve the bus provider in a new scope which will automatically start the bus
             // no need to store the return value since the bus provider should be registered with scope lifetime
-            _serviceScope = _serviceScope ?? _serviceProvider.CreateScope();
-            _serviceScope.ServiceProvider.GetRequiredService<IBusProvider>();
+            serviceScope.ServiceProvider.GetRequiredService<IBusProvider>();
         }
 
         public virtual void Stop()
@@ -52,5 +68,6 @@ namespace MassTransit.Hosting.Extensions
             var serviceScope = Interlocked.Exchange(ref _serviceScope, null);
             serviceScope?.Dispose();
         }
+
     }
 }

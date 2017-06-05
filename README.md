@@ -1,4 +1,4 @@
-﻿# MassTransit.Hosting.Extensions
+﻿# Overview
 
 This library provides extensions for [MassTransit] to support:
 * Dependency Injection with [Microsoft.Extensions.DependencyInjection]

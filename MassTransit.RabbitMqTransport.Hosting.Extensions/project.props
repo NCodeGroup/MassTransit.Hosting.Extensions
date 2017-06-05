@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NCodeClsCompliant>False</NCodeClsCompliant>
+
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Version>$(AssemblyVersion)-develop</Version>
+
+    <Description>Provides extensions for hosting MassTransist.RabbitMqTransport consumers by using Microsoft.Extensions for DI frameworks and configuration options.</Description>
+    <PackageTags>MassTransit;Dependency Injection;DI;Configuration;Options</PackageTags>
+  </PropertyGroup>
+
+</Project>

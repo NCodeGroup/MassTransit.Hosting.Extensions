@@ -34,6 +34,10 @@ namespace MassTransit.Hosting.Extensions
     {
         private readonly IOptionsSnapshot<TOptions> _provider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionsSettingsProvider{TSettings, TOptions}"/> class.
+        /// </summary>
+        /// <param name="provider">The <see cref="IOptionsSnapshot{TOptions}"/> used to access the <typeparamref name="TOptions"/> for the settings.</param>
         public OptionsSettingsProvider(IOptionsSnapshot<TOptions> provider)
         {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));

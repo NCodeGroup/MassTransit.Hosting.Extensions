@@ -27,6 +27,9 @@ namespace MassTransit.Hosting.Extensions
     /// </summary>
     public interface IBusProvider : IDisposable
     {
+        /// <summary>
+        /// Contains the <see cref="IBus"/> instance that this class manages.
+        /// </summary>
         IBus Bus { get; }
     }
 

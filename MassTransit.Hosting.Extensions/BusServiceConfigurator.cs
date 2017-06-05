@@ -46,6 +46,12 @@ namespace MassTransit.Hosting.Extensions
         private readonly IEnumerable<IEndpointSpecification> _endpointSpecifications;
         private readonly IEnumerable<IBusObserver> _busObservers;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BusServiceConfigurator"/> class.
+        /// </summary>
+        /// <param name="serviceSpecifications">A collection of <see cref="IServiceSpecification"/> to configure the service.</param>
+        /// <param name="endpointSpecifications">A collection of <see cref="IEndpointSpecification"/> to configure receive endpoints with consumers.</param>
+        /// <param name="busObservers">A collection of <see cref="IBusObserver"/> tp observe events produced by the bus.</param>
         public BusServiceConfigurator(IEnumerable<IServiceSpecification> serviceSpecifications, IEnumerable<IEndpointSpecification> endpointSpecifications, IEnumerable<IBusObserver> busObservers)
         {
             _serviceSpecifications = serviceSpecifications ?? throw new ArgumentNullException(nameof(serviceSpecifications));

@@ -34,6 +34,11 @@ namespace MassTransit.Hosting.Extensions
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IObjectMapper _objectMapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigurationSettingsProvider{T}"/> class.
+        /// </summary>
+        /// <param name="configurationProvider">The <see cref="IConfigurationProvider"/> to load configuration settings from.</param>
+        /// <param name="objectMapper">The <see cref="IObjectMapper"/> to materialize objects from configuration settings.</param>
         public ConfigurationSettingsProvider(IConfigurationProvider configurationProvider, IObjectMapper objectMapper)
         {
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));

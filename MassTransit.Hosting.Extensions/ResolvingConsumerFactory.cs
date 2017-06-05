@@ -35,6 +35,10 @@ namespace MassTransit.Hosting.Extensions
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResolvingConsumerFactory{TConsumer}"/> class.
+        /// </summary>
+        /// <param name="serviceProvider">The dependency container to create new service scopes and to resolve object instances from.</param>
         public ResolvingConsumerFactory(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));

@@ -23,6 +23,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Provides an implementation of <see cref="IConsumerFactory{TConsumer}"/>
+    /// that will create a new dependency scope and resolve the <typeparamref name="TConsumer"/>
+    /// from the dependency container. This class should be registered in the
+    /// dependency container as an open generic.
+    /// </summary>
+    /// <typeparam name="TConsumer"></typeparam>
     public class ResolvingConsumerFactory<TConsumer> : IConsumerFactory<TConsumer>
         where TConsumer : class
     {
@@ -33,6 +40,7 @@ namespace MassTransit.Hosting.Extensions
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
+        /// <inheritdoc />
         public virtual async Task Send<T>(ConsumeContext<T> context, IPipe<ConsumerConsumeContext<TConsumer, T>> next)
             where T : class
         {
@@ -46,6 +54,7 @@ namespace MassTransit.Hosting.Extensions
             }
         }
 
+        /// <inheritdoc />
         void IProbeSite.Probe(ProbeContext context)
         {
             context.CreateConsumerFactoryScope<TConsumer>("resolving");

@@ -22,6 +22,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Provides an implementation of <see cref="IServiceScope"/> to represent
+    /// and manage the very first (i.e. root) instance of a dependency container.
+    /// </summary>
     public class ServiceContainer : IServiceScope
     {
         private readonly IDisposable _lifetime;
@@ -34,6 +38,7 @@ namespace MassTransit.Hosting.Extensions
             _lifetime = lifetime ?? throw new ArgumentNullException(nameof(lifetime));
         }
 
+        /// <inheritdoc />
         public virtual IServiceProvider ServiceProvider
         {
             get
@@ -46,6 +51,7 @@ namespace MassTransit.Hosting.Extensions
             }
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);

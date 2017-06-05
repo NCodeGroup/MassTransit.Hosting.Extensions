@@ -21,11 +21,33 @@ using System.Threading;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Initializes and manages the lifetime for an <see cref="IBus"/> in the
+    /// service host.
+    /// </summary>
     public interface IBusProvider : IDisposable
     {
         IBus Bus { get; }
     }
 
+    /// <summary>
+    /// Provides an implementation of <see cref="IBusProvider"/> that initializes
+    /// an <see cref="IBus"/> for use in the consuming service host. This class
+    /// should be registered in the dependency container with scoped lifetime.
+    /// </summary>
+    /// <remarks>
+    /// Additional Dependencies:
+    /// <para>
+    /// IHostBusFactory: Resolved by '{Transport}HostBusFactory' where {Transport}
+    /// can be either 'RabbitMq' or 'ServiceBus', an implementation provided by
+    /// MassTransit. By this time, the IHostBusFactory will already have loaded
+    /// its settings from ISettingsProvider.
+    /// </para>
+    /// <para>
+    /// IBusServiceConfigurator: Resolved by 'BusServiceConfigurator', an
+    /// implementation provided by this library.
+    /// </para>
+    /// </remarks>
     public class BusProvider : IBusProvider
     {
         private IBusControl _busControl;
@@ -46,6 +68,7 @@ namespace MassTransit.Hosting.Extensions
             _busControl.Start();
         }
 
+        /// <inheritdoc />
         public virtual IBus Bus
         {
             get
@@ -58,6 +81,7 @@ namespace MassTransit.Hosting.Extensions
             }
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);

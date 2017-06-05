@@ -21,6 +21,13 @@ using MassTransit.Hosting.Extensions.Internal;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Provides an implementation of <see cref="ISettingsProvider{T}"/> that
+    /// will retrieve it's settings from <see cref="IConfigurationProvider"/>.
+    /// This class should be registered in the dependency container as an open
+    /// generic.
+    /// </summary>
+    /// <typeparam name="T">The type of <see cref="ISettings"/> to retrieve.</typeparam>
     public class ConfigurationSettingsProvider<T> : ISettingsProvider<T>
         where T : ISettings
     {
@@ -33,11 +40,13 @@ namespace MassTransit.Hosting.Extensions
             _objectMapper = objectMapper ?? throw new ArgumentNullException(nameof(objectMapper));
         }
 
+        /// <inheritdoc />
         public virtual bool TryGetSettings(out T settings)
         {
             return TryGetSettings(null, out settings);
         }
 
+        /// <inheritdoc />
         public virtual bool TryGetSettings(string prefix, out T settings)
         {
             var dictionary = new ConfigurationProviderDictionaryAdapter<T>(_configurationProvider, prefix);

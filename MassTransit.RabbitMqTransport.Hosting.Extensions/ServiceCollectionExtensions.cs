@@ -31,8 +31,7 @@ namespace MassTransit.RabbitMqTransport.Hosting.Extensions
             return AddRabbitMq(services, null);
         }
 
-        public static IServiceCollection AddRabbitMq(this IServiceCollection services,
-            Action<RabbitMqOptions> configureOptions)
+        public static IServiceCollection AddRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> configureOptions)
         {
             services.AddMassTransit();
             if (configureOptions != null)

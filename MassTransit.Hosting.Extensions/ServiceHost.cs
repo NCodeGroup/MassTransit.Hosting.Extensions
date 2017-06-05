@@ -22,12 +22,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Represents the lifetime used to manage a service host implementation.
+    /// </summary>
     public interface IServiceHost
     {
         void Start();
         void Stop();
     }
 
+    /// <summary>
+    /// Provides a default implementation of <see cref="IServiceHost"/> that
+    /// initializes the service bus in a new dependency scope when <see cref="M:Start"/>
+    /// is called.
+    /// </summary>
+    /// <remarks>
+    /// Additional Dependencies:
+    /// IServiceScopeFactory: To create new dependency scopes.
+    /// IBusProvider: To initialize and manage the lifetime of the service bus.
+    /// </remarks>
     public class ServiceHost : IServiceHost
     {
         private readonly IServiceProvider _serviceProvider;
@@ -53,6 +66,7 @@ namespace MassTransit.Hosting.Extensions
             return serviceScope;
         }
 
+        /// <inheritdoc />
         public virtual void Start()
         {
             var serviceScope = GetOrCreateScope();
@@ -62,6 +76,7 @@ namespace MassTransit.Hosting.Extensions
             serviceScope.ServiceProvider.GetRequiredService<IBusProvider>();
         }
 
+        /// <inheritdoc />
         public virtual void Stop()
         {
             // dispose the scope which will dispose the bus provider and stop the bus

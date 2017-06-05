@@ -15,13 +15,30 @@
 //    limitations under the License.
 // 
 #endregion
+
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Provides the ability to resolve <see cref="ISettings"/> from the
+    /// dependency container.
+    /// </summary>
+    /// <typeparam name="T">The settings type to return.</typeparam>
     public interface ISettingsProvider<T>
         where T : ISettings
     {
+        /// <summary>
+        /// Try to get the settings of the specified type, without a prefix.
+        /// </summary>
+        /// <param name="settings">The output settings value.</param>
+        /// <returns><c>True</c> if the settings could be resolved.</returns>
         bool TryGetSettings(out T settings);
 
+        /// <summary>
+        /// Try to get the settings of the specified type, using the specified prefix.
+        /// </summary>
+        /// <param name="prefix">The prefix to use when resolving configuration values from the property names.</param>
+        /// <param name="settings">The output settings value.</param>
+        /// <returns><c>True</c> if the settings could be resolved.</returns>
         bool TryGetSettings(string prefix, out T settings);
     }
 }

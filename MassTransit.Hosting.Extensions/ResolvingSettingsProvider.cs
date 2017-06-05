@@ -21,6 +21,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Provides an implementation of <see cref="ISettingsProvider"/> that will
+    /// attempt to retreive the requested settings by resolving them from the
+    /// dependency container using <see cref="ISettingsProvider{T}"/>.
+    /// </summary>
     public class ResolvingSettingsProvider : ISettingsProvider
     {
         private readonly IServiceProvider _serviceProvider;
@@ -30,6 +35,7 @@ namespace MassTransit.Hosting.Extensions
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
+        /// <inheritdoc />
         public virtual bool TryGetSettings<T>(string prefix, out T settings) where T : ISettings
         {
             settings = default(T);
@@ -37,6 +43,7 @@ namespace MassTransit.Hosting.Extensions
             return provider?.TryGetSettings(prefix, out settings) ?? false;
         }
 
+        /// <inheritdoc />
         public virtual bool TryGetSettings<T>(out T settings) where T : ISettings
         {
             settings = default(T);

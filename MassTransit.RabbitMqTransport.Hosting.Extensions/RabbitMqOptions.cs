@@ -18,14 +18,31 @@
 
 namespace MassTransit.RabbitMqTransport.Hosting.Extensions
 {
+    /// <summary>
+    /// A simple POCO with public getter and setter properties for the
+    /// <see cref="RabbitMqSettings"/> interface.
+    /// </summary>
     public class RabbitMqOptions : RabbitMqSettings
     {
+        /// <inheritdoc />
         public string Username { get; set; }
+
+        /// <inheritdoc />
         public string Password { get; set; }
+
+        /// <inheritdoc />
         public ushort? Heartbeat { get; set; }
+
+        /// <inheritdoc />
         public string Host { get; set; }
+
+        /// <inheritdoc />
         public int? Port { get; set; }
+
+        /// <inheritdoc />
         public string VirtualHost { get; set; }
+
+        /// <inheritdoc />
         public string ClusterMembers { get; set; }
     }
 }

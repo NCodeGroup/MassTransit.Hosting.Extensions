@@ -22,6 +22,10 @@ using GreenPipes.Internals.Mapping;
 
 namespace MassTransit.Hosting.Extensions.GreenPipes
 {
+    /// <summary>
+    /// An implementation of <see cref="IObjectMapper"/> that will use the builtin
+    /// <c>GreenPipes</c> obect converter cache.
+    /// </summary>
     public class GreenPipesObjectMapper : IObjectMapper
     {
         private readonly IObjectConverterCache _objectConverterCache;
@@ -35,13 +39,14 @@ namespace MassTransit.Hosting.Extensions.GreenPipes
             _objectConverterCache = objectConverterCache ?? throw new ArgumentNullException(nameof(objectConverterCache));
         }
 
+        /// <inheritdoc />
         public virtual T MapObject<T>(string prefix, IDictionary dictionary)
         {
             dictionary = dictionary ?? new Hashtable();
             var provider = new DictionaryObjectValueProvider(dictionary, prefix);
 
             var converter = _objectConverterCache.GetConverter(typeof(T));
-            var obj = (T) converter.GetObject(provider);
+            var obj = (T)converter.GetObject(provider);
             return obj;
         }
     }

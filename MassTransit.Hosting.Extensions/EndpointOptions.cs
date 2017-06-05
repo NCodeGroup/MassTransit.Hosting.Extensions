@@ -20,11 +20,21 @@ using System;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// A simple POCO with public getter and setter properties for the
+    /// <see cref="EndpointSettings"/> interface.
+    /// </summary>
     public class EndpointOptions : EndpointSettings
     {
+        /// <summary>
+        /// Provides a default value for <see cref="QueueName"/> for when it is <c>null</c>.
+        /// </summary>
         public static int DefaultConsumerLimit { get; set; } = Environment.ProcessorCount * 4;
 
+        /// <inheritdoc />
         public string QueueName { get; set; }
+
+        /// <inheritdoc />
         public int? ConsumerLimit { get; set; }
     }
 }

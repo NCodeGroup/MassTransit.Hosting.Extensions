@@ -21,6 +21,13 @@ using Microsoft.Extensions.Options;
 
 namespace MassTransit.Hosting.Extensions
 {
+    /// <summary>
+    /// Provides an implementation of <see cref="ISettingsProvider{T}"/> that
+    /// will try to retrieve the settings using Microsoft's <see cref="IOptions{TOptions}"/>
+    /// abstractions.
+    /// </summary>
+    /// <typeparam name="TSettings">The settings type to return.</typeparam>
+    /// <typeparam name="TOptions">The type of options being requested.</typeparam>
     public class OptionsSettingsProvider<TSettings, TOptions> : ISettingsProvider<TSettings>
         where TSettings : ISettings
         where TOptions : class, TSettings, new()
@@ -32,12 +39,14 @@ namespace MassTransit.Hosting.Extensions
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
 
+        /// <inheritdoc />
         public virtual bool TryGetSettings(out TSettings settings)
         {
             settings = _provider.Value;
             return true;
         }
 
+        /// <inheritdoc />
         public virtual bool TryGetSettings(string prefix, out TSettings settings)
         {
             return TryGetSettings(out settings);

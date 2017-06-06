@@ -22,20 +22,25 @@ using MassTransit.Hosting.Extensions.Internal;
 namespace MassTransit.Hosting.Extensions
 {
     /// <summary>
-    /// Provides an implementation of <see cref="ISettingsProvider{T}"/> that
-    /// will retrieve it's settings from <see cref="IConfigurationProvider"/>.
-    /// This class should be registered in the dependency container as an open
-    /// generic.
+    /// Represents a <see cref="ICandidateSettingsProvider"/> that will attempt
+    /// to retrieve settings from <see cref="IConfigurationProvider"/>.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="ISettings"/> to retrieve.</typeparam>
-    public class ConfigurationSettingsProvider<T> : ISettingsProvider<T>
-        where T : ISettings
+    public interface IConfigurationSettingsProvider : ICandidateSettingsProvider
+    {
+        // nothing
+    }
+
+    /// <summary>
+    /// Provides an implementation of <see cref="ICandidateSettingsProvider"/> that
+    /// will attempt to retrieve settings from <see cref="IConfigurationProvider"/>.
+    /// </summary>
+    public class ConfigurationSettingsProvider : IConfigurationSettingsProvider
     {
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IObjectMapper _objectMapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationSettingsProvider{T}"/> class.
+        /// Initializes a new instance of the <see cref="ConfigurationSettingsProvider"/> class.
         /// </summary>
         /// <param name="configurationProvider">The <see cref="IConfigurationProvider"/> to load configuration settings from.</param>
         /// <param name="objectMapper">The <see cref="IObjectMapper"/> to materialize objects from configuration settings.</param>
@@ -46,13 +51,7 @@ namespace MassTransit.Hosting.Extensions
         }
 
         /// <inheritdoc />
-        public virtual bool TryGetSettings(out T settings)
-        {
-            return TryGetSettings(null, out settings);
-        }
-
-        /// <inheritdoc />
-        public virtual bool TryGetSettings(string prefix, out T settings)
+        public virtual bool TryGetSettings<T>(string prefix, out T settings) where T : ISettings
         {
             var dictionary = new ConfigurationProviderDictionaryAdapter<T>(_configurationProvider, prefix);
             if (dictionary.Count == 0)
@@ -63,5 +62,12 @@ namespace MassTransit.Hosting.Extensions
             settings = _objectMapper.MapObject<T>(prefix, dictionary);
             return true;
         }
+
+        /// <inheritdoc />
+        public virtual bool TryGetSettings<T>(out T settings) where T : ISettings
+        {
+            return TryGetSettings(null, out settings);
+        }
+
     }
 }

@@ -31,12 +31,12 @@ namespace MassTransit.Hosting.Extensions.Tests
     {
         public static IEnumerable<object[]> TestData_ServiceTypes()
         {
-            yield return new object[] {typeof(IBusServiceConfigurator), typeof(BusServiceConfigurator)};
-            yield return new object[] {typeof(ISettingsProvider), typeof(ResolvingSettingsProvider)};
-            yield return new object[] {typeof(IConfigurationProvider), typeof(ConfigurationManagerProvider)};
-            yield return new object[] {typeof(IObjectMapper), typeof(GreenPipesObjectMapper)};
-            yield return new object[] {typeof(IObjectConverterCache), typeof(DynamicObjectConverterCache)};
-            yield return new object[] {typeof(IImplementationBuilder), typeof(DynamicImplementationBuilder)};
+            yield return new object[] { typeof(IBusServiceConfigurator), typeof(BusServiceConfigurator) };
+            yield return new object[] { typeof(ISettingsProvider), typeof(SettingsProvider) };
+            yield return new object[] { typeof(IConfigurationProvider), typeof(ConfigurationManagerProvider) };
+            yield return new object[] { typeof(IObjectMapper), typeof(GreenPipesObjectMapper) };
+            yield return new object[] { typeof(IObjectConverterCache), typeof(DynamicObjectConverterCache) };
+            yield return new object[] { typeof(IImplementationBuilder), typeof(DynamicImplementationBuilder) };
         }
 
         [Theory]
@@ -47,7 +47,7 @@ namespace MassTransit.Hosting.Extensions.Tests
             services.AddMassTransit();
 
             var provider = services.BuildServiceProvider();
-            using ((IDisposable) provider)
+            using ((IDisposable)provider)
             {
                 var instance = provider.GetRequiredService(serviceType);
                 Assert.IsType(expectedType, instance);
@@ -69,7 +69,7 @@ namespace MassTransit.Hosting.Extensions.Tests
             });
 
             var provider = services.BuildServiceProvider();
-            using ((IDisposable) provider)
+            using ((IDisposable)provider)
             {
                 var optionsProvider = provider.GetRequiredService<IOptions<EndpointOptions>>();
 
@@ -93,7 +93,7 @@ namespace MassTransit.Hosting.Extensions.Tests
             });
 
             var provider = services.BuildServiceProvider();
-            using ((IDisposable) provider)
+            using ((IDisposable)provider)
             {
                 var settingsProvider = provider.GetRequiredService<ISettingsProvider<EndpointSettings>>();
 
@@ -131,9 +131,9 @@ namespace MassTransit.Hosting.Extensions.Tests
             services.AddMassTransit();
 
             var provider = services.BuildServiceProvider();
-            using ((IDisposable) provider)
+            using ((IDisposable)provider)
             {
-                var settingsProvider = provider.GetRequiredService<ISettingsProvider<EndpointSettings>>();
+                var settingsProvider = provider.GetRequiredService<ISettingsProvider>();
 
                 var exists = settingsProvider.TryGetSettings(out EndpointSettings settings);
                 Assert.True(exists);

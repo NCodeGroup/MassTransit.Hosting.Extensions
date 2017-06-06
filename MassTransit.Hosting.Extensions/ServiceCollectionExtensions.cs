@@ -33,9 +33,16 @@ namespace MassTransit.Hosting.Extensions
             services.TryAddTransient<IBusServiceConfigurator, BusServiceConfigurator>();
             services.TryAddTransient<IServiceHost, ServiceHost>();
             services.TryAddTransient(typeof(IConsumerFactory<>), typeof(ResolvingConsumerFactory<>));
-            services.TryAddTransient(typeof(ISettingsProvider<>), typeof(ConfigurationSettingsProvider<>));
-            services.TryAddTransient<ISettingsProvider, ResolvingSettingsProvider>();
+
+            services.TryAddTransient<IResolvingSettingsProvider, ResolvingSettingsProvider>();
+            services.TryAddTransient<IConfigurationSettingsProvider, ConfigurationSettingsProvider>();
+
+            services.TryAddEnumerable(ServiceDescriptor.Transient<ICandidateSettingsProvider, ResolvingSettingsProvider>());
+            services.TryAddEnumerable(ServiceDescriptor.Transient<ICandidateSettingsProvider, ConfigurationSettingsProvider>());
+
+            services.TryAddScoped<ISettingsProvider, SettingsProvider>();
             services.TryAddSingleton<IConfigurationProvider, ConfigurationManagerProvider>();
+
             services.TryAddSingleton<IObjectMapper, GreenPipesObjectMapper>();
             services.TryAddSingleton<IObjectConverterCache, DynamicObjectConverterCache>();
             services.TryAddSingleton<IImplementationBuilder, DynamicImplementationBuilder>();
@@ -75,5 +82,6 @@ namespace MassTransit.Hosting.Extensions
             var container = new ServiceContainer(serviceProvider, lifetime);
             return container;
         }
+
     }
 }

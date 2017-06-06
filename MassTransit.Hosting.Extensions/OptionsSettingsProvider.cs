@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace MassTransit.Hosting.Extensions
@@ -32,22 +33,24 @@ namespace MassTransit.Hosting.Extensions
         where TSettings : ISettings
         where TOptions : class, TSettings, new()
     {
-        private readonly IOptionsSnapshot<TOptions> _provider;
+        private readonly IServiceProvider _serviceProvider;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OptionsSettingsProvider{TSettings, TOptions}"/> class.
-        /// </summary>
-        /// <param name="provider">The <see cref="IOptionsSnapshot{TOptions}"/> used to access the <typeparamref name="TOptions"/> for the settings.</param>
-        public OptionsSettingsProvider(IOptionsSnapshot<TOptions> provider)
+        public OptionsSettingsProvider(IServiceProvider serviceProvider)
         {
-            _provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            _serviceProvider = serviceProvider;
         }
 
         /// <inheritdoc />
         public virtual bool TryGetSettings(out TSettings settings)
         {
-            settings = _provider.Value;
-            return true;
+            var provider = _serviceProvider.GetService<IOptions<TOptions>>();
+            if (provider != null)
+            {
+                settings = provider.Value;
+                return true;
+            }
+            settings = default(TOptions);
+            return false;
         }
 
         /// <inheritdoc />
@@ -55,5 +58,6 @@ namespace MassTransit.Hosting.Extensions
         {
             return TryGetSettings(out settings);
         }
+
     }
 }

@@ -45,17 +45,17 @@ namespace MassTransit.Hosting.Extensions.Tests
 
         public static IEnumerable<object[]> TestData_EndpointSettings()
         {
-            yield return new object[] {GreenPipes(), null, RandomString(), RandomNumber()};
-            yield return new object[] {GreenPipes(), string.Empty, RandomString(), RandomNumber()};
-            yield return new object[] {GreenPipes(), RandomString(), RandomString(), RandomNumber()};
-            yield return new object[] {GreenPipes(), RandomString(), RandomString(), null};
-            yield return new object[] {GreenPipes(), RandomString(), null, RandomNumber()};
+            yield return new object[] { GreenPipes(), null, RandomString(), RandomNumber() };
+            yield return new object[] { GreenPipes(), string.Empty, RandomString(), RandomNumber() };
+            yield return new object[] { GreenPipes(), RandomString(), RandomString(), RandomNumber() };
+            yield return new object[] { GreenPipes(), RandomString(), RandomString(), null };
+            yield return new object[] { GreenPipes(), RandomString(), null, RandomNumber() };
 
-            yield return new object[] {Castle(), null, RandomString(), RandomNumber()};
-            yield return new object[] {Castle(), string.Empty, RandomString(), RandomNumber()};
-            yield return new object[] {Castle(), RandomString(), RandomString(), RandomNumber()};
-            yield return new object[] {Castle(), RandomString(), RandomString(), null};
-            yield return new object[] {Castle(), RandomString(), null, RandomNumber()};
+            yield return new object[] { Castle(), null, RandomString(), RandomNumber() };
+            yield return new object[] { Castle(), string.Empty, RandomString(), RandomNumber() };
+            yield return new object[] { Castle(), RandomString(), RandomString(), RandomNumber() };
+            yield return new object[] { Castle(), RandomString(), RandomString(), null };
+            yield return new object[] { Castle(), RandomString(), null, RandomNumber() };
         }
 
         [Theory]
@@ -91,8 +91,7 @@ namespace MassTransit.Hosting.Extensions.Tests
                     .Returns(() => false);
             }
 
-            var settingsProvider =
-                new ConfigurationSettingsProvider<EndpointSettings>(confgurationProviderMock.Object, objectMapper);
+            var settingsProvider = new ConfigurationSettingsProvider(confgurationProviderMock.Object, objectMapper);
 
             var successFlag = settingsProvider.TryGetSettings(prefix, out EndpointSettings settings);
             Assert.True(successFlag);
@@ -141,11 +140,12 @@ namespace MassTransit.Hosting.Extensions.Tests
             var services = new ServiceCollection();
             services.AddSingleton(objectMapper);
             services.AddSingleton(confgurationProviderMock.Object);
-            services.AddTransient<ISettingsProvider, ResolvingSettingsProvider>();
-            services.AddTransient(typeof(ISettingsProvider<>), typeof(ConfigurationSettingsProvider<>));
+            services.AddTransient<ICandidateSettingsProvider, ResolvingSettingsProvider>();
+            services.AddTransient<ICandidateSettingsProvider, ConfigurationSettingsProvider>();
+            services.AddTransient<ISettingsProvider, SettingsProvider>();
 
             var provider = services.BuildServiceProvider();
-            using ((IDisposable) provider)
+            using ((IDisposable)provider)
             {
                 var settingsProvider = provider.GetRequiredService<ISettingsProvider>();
 
@@ -163,15 +163,15 @@ namespace MassTransit.Hosting.Extensions.Tests
 
         public static IEnumerable<object[]> TestData_EmptyConfiguration()
         {
-            yield return new object[] {GreenPipes(), null};
-            yield return new object[] {GreenPipes(), string.Empty};
-            yield return new object[] {GreenPipes(), RandomString()};
-            yield return new object[] {GreenPipes(), RandomString()};
+            yield return new object[] { GreenPipes(), null };
+            yield return new object[] { GreenPipes(), string.Empty };
+            yield return new object[] { GreenPipes(), RandomString() };
+            yield return new object[] { GreenPipes(), RandomString() };
 
-            yield return new object[] {Castle(), null};
-            yield return new object[] {Castle(), string.Empty};
-            yield return new object[] {Castle(), RandomString()};
-            yield return new object[] {Castle(), RandomString()};
+            yield return new object[] { Castle(), null };
+            yield return new object[] { Castle(), string.Empty };
+            yield return new object[] { Castle(), RandomString() };
+            yield return new object[] { Castle(), RandomString() };
         }
 
         [Theory]
@@ -185,8 +185,7 @@ namespace MassTransit.Hosting.Extensions.Tests
                 .Setup(_ => _.TryGetSetting(It.IsAny<string>(), out tempString))
                 .Returns(() => false);
 
-            var settingsProvider =
-                new ConfigurationSettingsProvider<EndpointSettings>(confgurationProviderMock.Object, objectMapper);
+            var settingsProvider = new ConfigurationSettingsProvider(confgurationProviderMock.Object, objectMapper);
 
             var successFlag = settingsProvider.TryGetSettings(prefix, out EndpointSettings settings);
             Assert.False(successFlag);

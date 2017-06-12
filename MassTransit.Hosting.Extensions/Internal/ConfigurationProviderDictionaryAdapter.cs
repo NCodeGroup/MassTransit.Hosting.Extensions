@@ -1,6 +1,6 @@
-#region Copyright Preamble
+﻿#region Copyright Preamble
 // 
-//    Copyright � 2017 NCode Group
+//    Copyright © 2017 NCode Group
 // 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -48,12 +48,19 @@ namespace MassTransit.Hosting.Extensions.Internal
 
         private InnerCollection InnerValues => _values ?? (_values = new InnerCollection(this, GetValuesEnumerator, ContainsValue));
 
+        /// <inheritdoc />
         public bool IsFixedSize => true;
+
+        /// <inheritdoc />
         public bool IsSynchronized => false;
+
+        /// <inheritdoc />
         public object SyncRoot => this;
 
+        /// <inheritdoc />
         public int Count => _propertyNamesWithPrefix.Count(ContainsKey);
 
+        /// <inheritdoc />
         public bool IsReadOnly => true;
 
         private static ISet<string> LoadPropertyNamesWithPrefix(string prefix)
@@ -66,6 +73,7 @@ namespace MassTransit.Hosting.Extensions.Internal
 
         #region Enumerable Members
 
+        /// <inheritdoc />
         public IEnumerator<TResult> GetEnumerator<TResult>(Func<string, string, TResult> projector)
         {
             foreach (var key in _propertyNamesWithPrefix)
@@ -75,17 +83,18 @@ namespace MassTransit.Hosting.Extensions.Internal
             }
         }
 
+        /// <inheritdoc />
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
         {
             return GetEnumerator((key, value) => new KeyValuePair<string, string>(key, value));
         }
 
-        public IEnumerator<string> GetKeysEnumerator()
+        private IEnumerator<string> GetKeysEnumerator()
         {
             return GetEnumerator((key, value) => key);
         }
 
-        public IEnumerator<string> GetValuesEnumerator()
+        private IEnumerator<string> GetValuesEnumerator()
         {
             return GetEnumerator((key, value) => value);
         }
@@ -99,31 +108,38 @@ namespace MassTransit.Hosting.Extensions.Internal
 
         #region IDictionary<string, string> Members
 
+        /// <inheritdoc />
         public ICollection<string> Keys => InnerKeys;
 
+        /// <inheritdoc />
         public ICollection<string> Values => InnerValues;
 
+        /// <inheritdoc />
         public string this[string key]
         {
             get => TryGetValue(key, out string value) ? value : null;
             set => throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public bool Contains(KeyValuePair<string, string> item)
         {
             return TryGetValue(item.Key, out string value) && item.Value == value;
         }
 
+        /// <inheritdoc />
         public bool ContainsKey(string key)
         {
             return TryGetValue(key, out string _);
         }
 
+        /// <inheritdoc />
         public bool ContainsValue(string value)
         {
             return _propertyNamesWithPrefix.Any(key => TryGetValue(key, out string item) && item == value);
         }
 
+        /// <inheritdoc />
         public bool TryGetValue(string key, out string value)
         {
             if (!_propertyNamesWithPrefix.Contains(key))
@@ -161,46 +177,55 @@ namespace MassTransit.Hosting.Extensions.Internal
 
         #region Not Supported Members
 
+        /// <inheritdoc />
         public void Clear()
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void Add(object key, object value)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void Add(string key, string value)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void Add(KeyValuePair<string, string> item)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void Remove(object key)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public bool Remove(string key)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public bool Remove(KeyValuePair<string, string> item)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex)
         {
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc />
         public void CopyTo(Array array, int index)
         {
             throw new NotSupportedException();

@@ -8,7 +8,7 @@
   <PropertyGroup>
     <NCodeClsCompliant>False</NCodeClsCompliant>
 
-    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <AssemblyVersion>1.0.4</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)-develop</Version>
 

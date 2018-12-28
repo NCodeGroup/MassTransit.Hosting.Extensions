@@ -1,4 +1,6 @@
-﻿# Overview
+**This GitHub project has been archived.** It is now obsolete and has been superseded by <https://github.com/NCodeGroup/MassTransit.Extensions.Hosting>
+
+# Overview [Archived]
 
 This library provides extensions for [MassTransit] to support:
 * Dependency Injection with [Microsoft.Extensions.DependencyInjection]
